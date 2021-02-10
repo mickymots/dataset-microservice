@@ -4,7 +4,7 @@ metadata:
   name: dataset-microservice
 
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: dataset-microservice
@@ -19,5 +19,19 @@ spec:
         ports:
         - containerPort: 5000                       #+
           name: http                                #+
-        - containerPort: 22                         #+
-          name: ssh         
+
+
+---
+kind: Service             #+
+apiVersion: v1            #+
+metadata:                 #+
+  name: dataset-loadbalancer     #+
+spec:                     #+
+  selector:               #+
+    app: dataset-microservice            #+
+  ports:                  #+
+  - protocol: TCP         #+
+    targetPort: 5000      #+
+    port: 80              #+
+    name: http            #+
+  type: LoadBalancer      #+
