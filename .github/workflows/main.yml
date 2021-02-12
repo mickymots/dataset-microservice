@@ -58,9 +58,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, setup-gcloud-sdk]
     steps:
-      - name: deploy to dev cluster
-        run : kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 
-     
-      - name: expose service
-        run : kubectl expose deployment hello-app --type=LoadBalancer --port 8080
+      
+        - id: get-credentials
+          uses: google-github-actions/get-gke-credentials@main
+          with:
+            cluster_name: dataset-cluster
+            location: us-central1-c
+            credentials: ${{ secrets.gcp_credentials }}
+          
+        - name: deploy to dev cluster
+          run : kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 
+
+        - name: expose service
+          run : kubectl expose deployment hello-app --type=LoadBalancer --port 8080
     
