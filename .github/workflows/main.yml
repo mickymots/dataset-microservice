@@ -84,7 +84,7 @@ jobs:
       
       - id: echo_image_sha
         name: Echo image name
-        run: echo ${{GITHUB_SHA}}
+        run: echo ${{env.GITHUB_SHA}}
       
 #         - name: Set up Cloud SDK
 #           uses: google-github-actions/setup-gcloud@master
