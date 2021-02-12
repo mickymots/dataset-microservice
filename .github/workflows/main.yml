@@ -75,7 +75,7 @@ jobs:
     steps:
       - id: echo_image_name 
         name: Echo image name
-        run: echo ${{needs.build.outputs.image-names[0]}}
+        run: echo ${{needs.build.outputs.image-names}}[0]
       
 #         - name: Set up Cloud SDK
 #           uses: google-github-actions/setup-gcloud@master
