@@ -30,5 +30,12 @@ jobs:
         run: echo Hello, world!
 
 
-      - name: GitHub Container Registry Docker Action
-        uses: mickymots/github-docker@master
+      - name: Build container image
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.admin_token }}
+          registry: docker.pkg.github.com
+          repository: ${{ github.repository }}/dataset-microservice-image
+          tag_with_sha: true
+          tag_with_ref: true
