@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ develop ]
+    branches: [ master ]
   pull_request:
-    branches: [ develop ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -57,7 +57,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-#           push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
   
@@ -80,29 +80,29 @@ jobs:
       
       - id: echo_image_name 
         name: Echo image name
-        run: echo ${{needs.build.outputs.image-tag}}
+        run: echo ${{needs.build.outputs.image-tags}}
       
       - id: echo_image_sha
-        name: Echo image name
+        name: Echo image sha
         run: echo ${{env.GITHUB_SHA}}
       
-#         - name: Set up Cloud SDK
-#           uses: google-github-actions/setup-gcloud@master
-#           with:
-#             project_id: ${{ secrets.GCP_PROJECT_ID }}
-#             service_account_key: ${{ secrets.GCP_SA_KEY }}
-#             export_default_credentials: true    
-      
-#         - id: get-credentials
-#           uses: google-github-actions/get-gke-credentials@main
-#           with:
-#             cluster_name: dataset-cluster
-#             location: us-central1-c
-            
-          
-#         - name: deploy to dev cluster
-#           run : kubectl create deployment hello-app --image=docker.pkg.github.com/mickymots/dataset-microservice/dataset-microservice-image:sha-3731d82
+      # setup GCloud SDK and GKE
+#       - name: Set up Cloud SDK
+#         uses: google-github-actions/setup-gcloud@master
+#         with:
+#           project_id: ${{ secrets.GCP_PROJECT_ID }}
+#           service_account_key: ${{ secrets.GCP_SA_KEY }}
+#           export_default_credentials: true    
 
-#         - name: expose service
-#           run : kubectl expose deployment hello-app --type=LoadBalancer --port 8080
-    
+#       - id: get-credentials
+#         uses: google-github-actions/get-gke-credentials@main
+#         with:
+#           cluster_name: dataset-cluster
+#           location: us-central1-c
+
+      # Create deployment kubectl
+      - name: deploy to dev cluster
+        run : kubectl apply -f deployments/
+      
+     
+
