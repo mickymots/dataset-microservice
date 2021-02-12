@@ -47,13 +47,14 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ github.repository }}/dataset-microservice-image # list of Docker images to use as base name for tags
-          semver: |
+          tag-semver: |
             {{version}}
             {{major}}.{{minor}}            
           tag-sha: true # add git short SHA as Docker tag
           
       # Build and Push Docker Image
       - name: Build and Push container image
+        id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: ${{ github.event_name != 'pull_request' }}
@@ -74,7 +75,7 @@ jobs:
     steps:
       - id: echo_image_name 
         name: Echo image name
-        run: echo ${{needs.build.outputs.image-names}}
+        run: echo ${{needs.build.outputs.image-names[0]}}
       
 #         - name: Set up Cloud SDK
 #           uses: google-github-actions/setup-gcloud@master
