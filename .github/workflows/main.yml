@@ -72,8 +72,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - id: echo image name 
-        name: Echo Image name
+      - id: echo_image_name 
+        name: Echo image name
         run: echo ${{needs.build.outputs.image-names}}
       
 #         - name: Set up Cloud SDK
