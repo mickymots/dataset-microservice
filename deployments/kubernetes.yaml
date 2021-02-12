@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
       - name: dataset-microservice
-        image: singhamitprakash/dataset-microservice:latest
+        image: docker.pkg.github.com/mickymots/dataset-microservice/dataset-microservice-image:latest
         ports:
         - containerPort: 5000                       #+
           name: http                                #+
 
-
+# docker pull docker.pkg.github.com/mickymots/dataset-microservice/dataset-microservice-image:sha-3731d82
 ---
 kind: Service             #+
 apiVersion: v1            #+
