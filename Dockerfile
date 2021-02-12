@@ -1,17 +1,17 @@
 FROM python:latest
 
-# RUN pip install 
-
 WORKDIR /app
 
-COPY . . 
+ENV FLASK_APP=quick-start.py
+ENV FLASK_RUN_HOST=0.0.0.0
 
+
+RUN apt-get update
+
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-
-RUN export FLASK_APP=hello.py
 
 EXPOSE 5000
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "quick-start.py" ]
+COPY . .
+CMD ["flask", "run"]    
