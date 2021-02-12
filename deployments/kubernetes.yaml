@@ -20,7 +20,6 @@ spec:
         - containerPort: 5000                       #+
           name: http                                #+
 
-# docker pull docker.pkg.github.com/mickymots/dataset-microservice/dataset-microservice-image:sha-3731d82
 ---
 kind: Service             #+
 apiVersion: v1            #+
