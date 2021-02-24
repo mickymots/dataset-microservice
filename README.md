@@ -47,18 +47,10 @@ spec:
        – containerPort: 88
 
 
-Performing a Rolling Update
-Objectives
-Perform a rolling update using kubectl.
-Updating an application
-Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.
 
-In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods). In Kubernetes, updates are versioned and any Deployment update can be reverted to a previous (stable) version.
+# Minikube
 
-Summary:
-Updating an app
-Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones.
-
+minikube service --url dataset-loadbalancer
 
 kubectl cluster-info
 
